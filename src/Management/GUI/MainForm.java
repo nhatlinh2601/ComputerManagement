@@ -11,14 +11,15 @@ public class MainForm extends JFrame implements ActionListener {
     public static FrmSanPhamLK frmSanPhamLK;
     public static FrmLapHoaDon frmLapHoaDon;
     public static FrmXemHoaDon frmXemHoaDon;
-    private GioiThieuDlg gioiThieuDlg;
-    private JButton btnKhachHang;
-    private JButton btnLinhKien;
-    private JButton btnNhanVien;
-    private JButton btnHoaDon;
-    private JButton btnAboutUs;
-    private JButton btnThongKe;
-    private JButton btnDangXuat;
+    public static FrmThongTin frmThongTin;
+
+    public static JButton btnKhachHang;
+    public static JButton btnLinhKien;
+    public static JButton btnNhanVien;
+    public static JButton btnHoaDon;
+    public static JButton btnAboutUs;
+    public static JButton btnThongKe;
+    public static JButton btnDangXuat;
     public static JTabbedPane tpMain;
     private JButton btnXemHD;
 
@@ -26,7 +27,7 @@ public class MainForm extends JFrame implements ActionListener {
 
     public MainForm(){
         init();
-        setVisible(true);
+
 //        LoginDialog loginDialog=new LoginDialog();
 //        setExtendedState(JFrame.MAXIMIZED_BOTH);
 //        loginDialog.setVisible(true);
@@ -79,11 +80,7 @@ public class MainForm extends JFrame implements ActionListener {
         btnXemHD.setBackground(Color.DARK_GRAY);
         btnXemHD.setForeground(Color.white);
 
-        ImageIcon iconAboutUs=new ImageIcon(getClass().getResource("/Image/Actions-help-about-icon.png"));
-         btnAboutUs=new JButton("Giới Thiệu",iconAboutUs);
-        btnAboutUs.setFont(fontTextTbar);
-        btnAboutUs.setBackground(Color.DARK_GRAY);
-        btnAboutUs.setForeground(Color.white);
+
 
         ImageIcon iconThongKe=new ImageIcon(getClass().getResource("/Image/Cash-register-icon.png"));
          btnThongKe=new JButton("Thống Kê",iconThongKe);
@@ -103,20 +100,23 @@ public class MainForm extends JFrame implements ActionListener {
         tbar.add(btnHoaDon);
         tbar.add(btnXemHD);
         tbar.add(btnThongKe);
-        tbar.add(btnAboutUs);
         tbar.add(btnDangXuat);
         tbar.addSeparator();
 
         footerBar.add(tbar);
 
         tpMain=new JTabbedPane();
+        frmThongTin=new FrmThongTin();
+        tpMain.addTab("Giới Thiệu", null, frmThongTin);
+        tpMain.setSelectedComponent(frmThongTin);
 
         btnKhachHang.addActionListener( this);
         btnNhanVien.addActionListener( this);
         btnLinhKien.addActionListener( this);
-        btnAboutUs.addActionListener(this);
+
         btnHoaDon.addActionListener(this);
         btnXemHD.addActionListener(this);
+        btnDangXuat.addActionListener(this);
 
 
 
@@ -124,6 +124,7 @@ public class MainForm extends JFrame implements ActionListener {
 
         this.add(footerBar, BorderLayout.NORTH);
         this.add(tpMain, BorderLayout.CENTER);
+        this.getContentPane().setBackground(Color.LIGHT_GRAY);
 //        setVisible(true);
 
     }
@@ -178,9 +179,11 @@ public class MainForm extends JFrame implements ActionListener {
 
         }
 
-        else if (obj.equals(btnAboutUs)){
 
-            gioiThieuDlg=new GioiThieuDlg();
+        else if (obj.equals(btnDangXuat)){
+            this.dispose();
+            LoginDialog loginDialog=new LoginDialog();
+
 
         }
     }

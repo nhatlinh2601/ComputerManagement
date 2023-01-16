@@ -157,14 +157,19 @@ public class FrmNhanVien extends JPanel implements ActionListener {
         JPanel pnButton = new JPanel(new GridLayout(4, 1, 20, 20));
         ImageIcon iconNew = new ImageIcon(getClass().getResource("/Image/Actions-contact-new-icon.png"));
         btnNew = new JButton("Làm mới", iconNew);
+
         ImageIcon iconUpdate = new ImageIcon(getClass().getResource("/Image/Text-Edit-icon.png"));
         btnUpdate = new JButton("Cập nhật", iconUpdate);
+
         ImageIcon iconDelete = new ImageIcon(getClass().getResource("/Image/Button-Close-icon.png"));
         btnDelete = new JButton("Xóa", iconDelete);
+
         ImageIcon iconAdd = new ImageIcon(getClass().getResource("/Image/Actions-insert-table-icon.png"));
         btnAdd = new JButton("Lưu", iconAdd);
+
         ImageIcon iconClsoe = new ImageIcon(getClass().getResource("/Image/Close-icon.png"));
         btnClose = new JButton("Thoát", iconClsoe);
+
 
         pnButton.add(btnNew);
         pnButton.add(btnAdd);

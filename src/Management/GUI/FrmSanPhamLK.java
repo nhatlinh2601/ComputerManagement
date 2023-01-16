@@ -235,6 +235,8 @@ public class FrmSanPhamLK extends JPanel implements ActionListener {
         tblSanPhamLK.setModel(spLKModel);
         loadDataSanPhamTable();
 
+
+
         btnClose.addActionListener(this);
         btnUpdate.addActionListener(this);
         btnNew.addActionListener(this);
