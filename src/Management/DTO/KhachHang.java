@@ -11,7 +11,7 @@ public class KhachHang {
     private String diaChi;
     private String maHD;
 
-    public KhachHang( String tenKH, String soDT, String diaChi, String maHD, String gioiTinh, Date ngaySinh) {
+    public KhachHang(String tenKH, String soDT, String diaChi, String maHD, String gioiTinh, Date ngaySinh) {
         this.tenKH = tenKH;
         this.soDT = soDT;
         this.diaChi = diaChi;
@@ -55,9 +55,6 @@ public class KhachHang {
     }
 
 
-
-
-
     public String getTenKH() {
         return tenKH;
     }
@@ -89,6 +86,7 @@ public class KhachHang {
     public void setNgaySinh(Date ngaySinh) {
         this.ngaySinh = ngaySinh;
     }
+
     public void setGioiTinh(String gioiTinh) {
         this.gioiTinh = gioiTinh;
     }

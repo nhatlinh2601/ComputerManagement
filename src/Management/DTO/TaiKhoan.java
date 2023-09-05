@@ -2,7 +2,7 @@ package Management.DTO;
 
 public class TaiKhoan {
 
-    private String username,password,loaiTK;
+    private String username, password, loaiTK;
 
     public TaiKhoan(String username, String password) {
         this.username = username;

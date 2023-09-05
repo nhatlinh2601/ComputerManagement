@@ -15,16 +15,17 @@ public class KhachHangDAO {
     private PreparedStatement pstmt;
 
 
-    public KhachHang layThongTinKhachHang(String maKH){
-        try{
-            Connection conn=DatabaseHelper.getConnection();
-            String sql="select * from khachhang where makh=?";
-            pstmt=conn.prepareStatement(sql);
+    public KhachHang layThongTinKhachHang(String maKH) {
+        Connection conn = null;
+        try {
+            conn = DatabaseHelper.getConnection();
+            String sql = "select * from khachhang where makh=?";
+            pstmt = conn.prepareStatement(sql);
 
-            pstmt.setString(1,maKH);
-            ResultSet rs=pstmt.executeQuery();
-            KhachHang khachHang=new KhachHang();
-            if (rs.next()){
+            pstmt.setString(1, maKH);
+            ResultSet rs = pstmt.executeQuery();
+            KhachHang khachHang = new KhachHang();
+            if (rs.next()) {
 
                 khachHang.setMaKH(maKH);
                 khachHang.setTenKH(rs.getString("tenkh"));
@@ -34,57 +35,67 @@ public class KhachHangDAO {
                 khachHang.setGioiTinh(rs.getString("gioitinh"));
             }
 
+
             return khachHang;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (Exception e) {
             throw new RuntimeException(e);
+        } finally {
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ignore) {
+            }
         }
     }
 
     public boolean updateKhachHang(KhachHang khachHang) throws SQLException {
-
+        Connection conn = null;
         try {
 
-            Connection conn=DatabaseHelper.getConnection();
-            String sql="update khachHang set tenkh=?,diachi=?,sodt=?,ngaysinh=?,gioitinh=? where makh=?";
-            pstmt=conn.prepareStatement(sql);
+            conn = DatabaseHelper.getConnection();
+            String sql = "update khachHang set tenkh=?,diachi=?,sodt=?,ngaysinh=?,gioitinh=? where makh=?";
+            pstmt = conn.prepareStatement(sql);
 
-            pstmt.setString(6,khachHang.getMaKH());
-            pstmt.setString(1,khachHang.getTenKH());
-            pstmt.setString(2,khachHang.getDiaChi());
-            pstmt.setString(3,khachHang.getSoDT());
-            pstmt.setDate(4,khachHang.getNgaySinh());
-            pstmt.setString(5,khachHang.getGioiTinh());
+            pstmt.setString(6, khachHang.getMaKH());
+            pstmt.setString(1, khachHang.getTenKH());
+            pstmt.setString(2, khachHang.getDiaChi());
+            pstmt.setString(3, khachHang.getSoDT());
+            pstmt.setDate(4, khachHang.getNgaySinh());
+            pstmt.setString(5, khachHang.getGioiTinh());
+
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return pstmt.executeUpdate()>0;
+        return pstmt.executeUpdate() > 0;
     }
+
     public boolean xoaKhachHang(String maKH) throws SQLException {
+        Connection conn = null;
         try {
-            Connection conn=DatabaseHelper.getConnection();
-            String sql="delete from khachHang where makh=?";
-            pstmt=conn.prepareStatement(sql);
-            pstmt.setString(1,maKH);
+            conn = DatabaseHelper.getConnection();
+            String sql = "delete from khachHang where makh=?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, maKH);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return pstmt.executeUpdate()>0;
+        return pstmt.executeUpdate() > 0;
     }
 
-    public ArrayList<KhachHang> findByMaKH(String maKH){
+    public ArrayList<KhachHang> findByMaKH(String maKH) {
+        Connection conn = null;
         try {
-            Connection conn=DatabaseHelper.getConnection();
-            String sql="select * from khachhang where makh like ?";
-            pstmt=conn.prepareStatement(sql);
-            pstmt.setString(1,"%" + maKH + "%");
-            ResultSet rs=pstmt.executeQuery();
-            customerList=new ArrayList<>();
-            while (rs.next()){
-                KhachHang khachHang=new KhachHang();
+            conn = DatabaseHelper.getConnection();
+            String sql = "select * from khachhang where makh like ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, "%" + maKH + "%");
+            ResultSet rs = pstmt.executeQuery();
+            customerList = new ArrayList<>();
+            while (rs.next()) {
+                KhachHang khachHang = new KhachHang();
                 khachHang.setMaKH(rs.getString("makh"));
                 khachHang.setSoDT(rs.getString("sodt"));
                 khachHang.setTenKH(rs.getString("tenkh"));
@@ -93,24 +104,31 @@ public class KhachHangDAO {
                 khachHang.setDiaChi(rs.getString("diachi"));
                 customerList.add(khachHang);
             }
+
             return customerList;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (Exception e) {
             throw new RuntimeException(e);
+        } finally {
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ignore) {
+            }
         }
     }
 
-    public ArrayList<KhachHang> findByTenKH(String tenKHlike){
+    public ArrayList<KhachHang> findByTenKH(String tenKHlike) {
+        Connection conn = null;
         try {
-            Connection conn=DatabaseHelper.getConnection();
-            String sql="select * from khachhang where tenkh like ?";
-            pstmt=conn.prepareStatement(sql);
-            pstmt.setString(1,"%" + tenKHlike + "%");
-            ResultSet rs=pstmt.executeQuery();
-            customerList=new ArrayList<>();
-            while (rs.next()){
-                KhachHang khachHang=new KhachHang();
+            conn = DatabaseHelper.getConnection();
+            String sql = "select * from khachhang where tenkh like ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, "%" + tenKHlike + "%");
+            ResultSet rs = pstmt.executeQuery();
+            customerList = new ArrayList<>();
+            while (rs.next()) {
+                KhachHang khachHang = new KhachHang();
                 khachHang.setMaKH(rs.getString("makh"));
                 khachHang.setSoDT(rs.getString("sodt"));
                 khachHang.setTenKH(rs.getString("tenkh"));
@@ -120,24 +138,32 @@ public class KhachHangDAO {
 
                 customerList.add(khachHang);
             }
+
             return customerList;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (Exception e) {
             throw new RuntimeException(e);
+        } finally {
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ignore) {
+            }
         }
+
     }
 
-    public ArrayList<KhachHang> findBySDT(String soDT){
+    public ArrayList<KhachHang> findBySDT(String soDT) {
+        Connection conn = null;
         try {
-            Connection conn=DatabaseHelper.getConnection();
-            String sql="select * from khachhang where sodt like ?";
-            pstmt=conn.prepareStatement(sql);
-            pstmt.setString(1,"%" + soDT + "%");
-            ResultSet rs=pstmt.executeQuery();
-            customerList=new ArrayList<>();
-            while (rs.next()){
-                KhachHang khachHang=new KhachHang();
+            conn = DatabaseHelper.getConnection();
+            String sql = "select * from khachhang where sodt like ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, "%" + soDT + "%");
+            ResultSet rs = pstmt.executeQuery();
+            customerList = new ArrayList<>();
+            while (rs.next()) {
+                KhachHang khachHang = new KhachHang();
                 khachHang.setMaKH(rs.getString("makh"));
                 khachHang.setSoDT(rs.getString("sodt"));
                 khachHang.setTenKH(rs.getString("tenkh"));
@@ -146,44 +172,67 @@ public class KhachHangDAO {
                 khachHang.setDiaChi(rs.getString("diachi"));
                 customerList.add(khachHang);
             }
+
             return customerList;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (Exception e) {
             throw new RuntimeException(e);
+        } finally {
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ignore) {
+            }
         }
     }
 
-    public String getMaHDbyMaKH(String maKH){
+    public String getMaHDbyMaKH(String maKH) {
         String maHD = null;
+        Connection conn = null;
         try {
-            Connection conn=DatabaseHelper.getConnection();
-            String sql="select mahd from khachhang where makh=?";
+            conn = DatabaseHelper.getConnection();
+            String sql = "select mahd from khachhang where makh=?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, Integer.parseInt(maKH));
-            ResultSet rs= pstmt.executeQuery();
-            if (rs.next()){
-                maHD=rs.getString("mahd");
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                maHD = rs.getString("mahd");
             }
+
             return maHD;
         } catch (Exception e) {
             throw new RuntimeException(e);
+        } finally {
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ignore) {
+            }
         }
     }
-    public String getTenKHbyMaHD(String maHD){
+
+    public String getTenKHbyMaHD(String maHD) {
         String tenKH = null;
+        Connection conn = null;
         try {
-            Connection conn=DatabaseHelper.getConnection();
-            String sql="select tenkh from khachhang where mahd=?";
+            conn = DatabaseHelper.getConnection();
+            String sql = "select tenkh from khachhang where mahd=?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, maHD);
-            ResultSet rs= pstmt.executeQuery();
-            if (rs.next()){
-                tenKH=rs.getString("tenkh");
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                tenKH = rs.getString("tenkh");
             }
+
             return tenKH;
         } catch (Exception e) {
             throw new RuntimeException(e);
+        } finally {
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ignore) {
+            }
         }
     }
+
+
 }

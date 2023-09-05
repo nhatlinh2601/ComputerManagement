@@ -2,7 +2,7 @@ package Management.DTO;
 
 public class ChiTietHD {
 
-    private String maHD,maSP,donViTinh;
+    private String maHD, maSP, donViTinh;
     private Float donGia;
     private int soLuong;
 

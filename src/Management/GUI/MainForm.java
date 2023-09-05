@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 public class MainForm extends JFrame implements ActionListener {
 
     public static FrmKhachHang frmKhachHang;
@@ -12,6 +13,8 @@ public class MainForm extends JFrame implements ActionListener {
     public static FrmLapHoaDon frmLapHoaDon;
     public static FrmXemHoaDon frmXemHoaDon;
     public static FrmThongTin frmThongTin;
+    public static FrmThongTin frmThongTinn;
+    public static FrmThongKe frmThongKe;
 
     public static JButton btnKhachHang;
     public static JButton btnLinhKien;
@@ -24,72 +27,83 @@ public class MainForm extends JFrame implements ActionListener {
     private JButton btnXemHD;
 
 
+    public MainForm() {
+        initGUI();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        action();
 
-    public MainForm(){
-        init();
-
-//        LoginDialog loginDialog=new LoginDialog();
-//        setExtendedState(JFrame.MAXIMIZED_BOTH);
-//        loginDialog.setVisible(true);
     }
 
-    public void init(){
+    public void action() {
+        btnKhachHang.addActionListener(this);
+        btnNhanVien.addActionListener(this);
+        btnLinhKien.addActionListener(this);
 
-        setSize(1000,700);
+        btnHoaDon.addActionListener(this);
+        btnXemHD.addActionListener(this);
+        btnDangXuat.addActionListener(this);
+        btnThongKe.addActionListener(this);
+    }
+
+
+    public void initGUI() {
+
+        setSize(1000, 700);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Quản lý bán hàng linh kiện máy tính");
-        ImageIcon icon=new ImageIcon(getClass().getResource("/Image/Admin-icon.png"));
+        ImageIcon icon = new ImageIcon(getClass().getResource("/Image/Admin-icon.png"));
         this.setIconImage(icon.getImage());
 
 
-        JPanel footerBar=new JPanel();
+        JPanel footerBar = new JPanel();
+        footerBar.setBackground(new Color(211, 225, 237));
         footerBar.setBorder(BorderFactory.createTitledBorder("MENU"));
-        JToolBar tbar=new JToolBar();
-        Font fontTextTbar=new Font("Fira Code",Font.PLAIN,20);
+        JToolBar tbar = new JToolBar();
+        Font fontTextTbar = new Font("Fira Code", Font.PLAIN, 20);
+        tbar.setBackground(new Color(119, 163, 168));
 
 
-        ImageIcon iconKhachHang=new ImageIcon(getClass().getResource("/Image/Users-icon.png"));
-         btnKhachHang=new JButton("QL Khách Hàng",iconKhachHang);
+        ImageIcon iconKhachHang = new ImageIcon(getClass().getResource("/Image/Users-icon.png"));
+        btnKhachHang = new JButton("QL Khách Hàng", iconKhachHang);
         btnKhachHang.setFont(fontTextTbar);
         btnKhachHang.setBackground(Color.DARK_GRAY);
         btnKhachHang.setForeground(Color.white);
 
-        ImageIcon iconLinhKien=new ImageIcon(getClass().getResource("/Image/computer-lock-icon.png"));
-         btnLinhKien=new JButton("QL Linh Kiện",iconLinhKien);
+        ImageIcon iconLinhKien = new ImageIcon(getClass().getResource("/Image/computer-lock-icon.png"));
+        btnLinhKien = new JButton("QL Linh Kiện", iconLinhKien);
         btnLinhKien.setFont(fontTextTbar);
         btnLinhKien.setBackground(Color.DARK_GRAY);
         btnLinhKien.setForeground(Color.white);
 
-        ImageIcon iconNhanVien=new ImageIcon(getClass().getResource("/Image/Preppy-icon.png"));
-         btnNhanVien=new JButton("QL Nhân Viên",iconNhanVien);
+        ImageIcon iconNhanVien = new ImageIcon(getClass().getResource("/Image/Preppy-icon.png"));
+        btnNhanVien = new JButton("QL Nhân Viên", iconNhanVien);
         btnNhanVien.setFont(fontTextTbar);
         btnNhanVien.setBackground(Color.DARK_GRAY);
         btnNhanVien.setForeground(Color.white);
 
 
-        ImageIcon iconHoaDon=new ImageIcon(getClass().getResource("/Image/receipt-icon.png"));
-         btnHoaDon=new JButton("Lập Hóa Đơn",iconHoaDon);
+        ImageIcon iconHoaDon = new ImageIcon(getClass().getResource("/Image/receipt-icon.png"));
+        btnHoaDon = new JButton("Lập Hóa Đơn", iconHoaDon);
         btnHoaDon.setFont(fontTextTbar);
         btnHoaDon.setBackground(Color.DARK_GRAY);
         btnHoaDon.setForeground(Color.white);
 
-        ImageIcon iconXemHoaDon=new ImageIcon(getClass().getResource("/Image/invoice-icon.png"));
-        btnXemHD=new JButton("Xem Hóa Đơn",iconXemHoaDon);
+        ImageIcon iconXemHoaDon = new ImageIcon(getClass().getResource("/Image/invoice-icon.png"));
+        btnXemHD = new JButton("QL đơn hàng", iconXemHoaDon);
         btnXemHD.setFont(fontTextTbar);
         btnXemHD.setBackground(Color.DARK_GRAY);
         btnXemHD.setForeground(Color.white);
 
 
-
-        ImageIcon iconThongKe=new ImageIcon(getClass().getResource("/Image/Cash-register-icon.png"));
-         btnThongKe=new JButton("Thống Kê",iconThongKe);
+        ImageIcon iconThongKe = new ImageIcon(getClass().getResource("/Image/Cash-register-icon.png"));
+        btnThongKe = new JButton("Thống Kê", iconThongKe);
         btnThongKe.setFont(fontTextTbar);
         btnThongKe.setBackground(Color.DARK_GRAY);
         btnThongKe.setForeground(Color.white);
 
-        ImageIcon iconDangXuat=new ImageIcon(getClass().getResource("/Image/logout-icon.png"));
-         btnDangXuat=new JButton("Đăng Xuất",iconDangXuat);
+        ImageIcon iconDangXuat = new ImageIcon(getClass().getResource("/Image/logout-icon.png"));
+        btnDangXuat = new JButton("Đăng Xuất", iconDangXuat);
         btnDangXuat.setFont(fontTextTbar);
         btnDangXuat.setBackground(Color.DARK_GRAY);
         btnDangXuat.setForeground(Color.white);
@@ -105,32 +119,22 @@ public class MainForm extends JFrame implements ActionListener {
 
         footerBar.add(tbar);
 
-        tpMain=new JTabbedPane();
-        frmThongTin=new FrmThongTin();
+        tpMain = new JTabbedPane();
+        frmThongTin = new FrmThongTin();
+        frmThongTinn = new FrmThongTin();
         tpMain.addTab("Giới Thiệu", null, frmThongTin);
         tpMain.setSelectedComponent(frmThongTin);
-
-        btnKhachHang.addActionListener( this);
-        btnNhanVien.addActionListener( this);
-        btnLinhKien.addActionListener( this);
-
-        btnHoaDon.addActionListener(this);
-        btnXemHD.addActionListener(this);
-        btnDangXuat.addActionListener(this);
-
-
-
 
 
         this.add(footerBar, BorderLayout.NORTH);
         this.add(tpMain, BorderLayout.CENTER);
-        this.getContentPane().setBackground(Color.LIGHT_GRAY);
-//        setVisible(true);
+        this.getContentPane().setBackground(new Color(233, 233, 233));
+
 
     }
 
 
-    public void actionPerformed(ActionEvent e){
+    public void actionPerformed(ActionEvent e) {
         Object obj = e.getSource();
         if (obj.equals(btnKhachHang)) {
 
@@ -140,7 +144,7 @@ public class MainForm extends JFrame implements ActionListener {
             tpMain.addTab("Quản lý Khách Hàng", iconKhachHang2, frmKhachHang);
             tpMain.setSelectedComponent(frmKhachHang);
 
-            } else if (obj.equals(btnNhanVien)) {
+        } else if (obj.equals(btnNhanVien)) {
 
             tpMain.remove(tpMain.getSelectedComponent());
             frmNhanVien = new FrmNhanVien();
@@ -149,7 +153,7 @@ public class MainForm extends JFrame implements ActionListener {
             tpMain.setSelectedComponent(frmNhanVien);
 
 
-            } else if (obj.equals(btnLinhKien)) {
+        } else if (obj.equals(btnLinhKien)) {
 
             tpMain.remove(tpMain.getSelectedComponent());
             frmSanPhamLK = new FrmSanPhamLK();
@@ -157,37 +161,37 @@ public class MainForm extends JFrame implements ActionListener {
             tpMain.addTab("Quản lý SP", iconNV, frmSanPhamLK);
             tpMain.setSelectedComponent(frmSanPhamLK);
 
-            }
-
-        else if (obj.equals(btnHoaDon)) {
+        } else if (obj.equals(btnHoaDon)) {
 
             tpMain.remove(tpMain.getSelectedComponent());
-            frmLapHoaDon=new FrmLapHoaDon();
+            frmLapHoaDon = new FrmLapHoaDon();
             ImageIcon iconHD = new ImageIcon(getClass().getResource("/Image/receipt-icon.png"));
             tpMain.addTab("Lập Hóa Đơn", iconHD, frmLapHoaDon);
             tpMain.setSelectedComponent(frmLapHoaDon);
 
-        }
-
-        else if (obj.equals(btnXemHD)) {
+        } else if (obj.equals(btnXemHD)) {
 
             tpMain.remove(tpMain.getSelectedComponent());
-            frmXemHoaDon=new FrmXemHoaDon();
+            frmXemHoaDon = new FrmXemHoaDon();
             ImageIcon iconXemHD = new ImageIcon(getClass().getResource("/Image/invoice-icon.png"));
             tpMain.addTab("Xem Hóa Đơn", iconXemHD, frmXemHoaDon);
             tpMain.setSelectedComponent(frmXemHoaDon);
 
-        }
+        } else if (obj.equals(btnThongKe)) {
 
+            tpMain.remove(tpMain.getSelectedComponent());
+            frmThongKe = new FrmThongKe();
+            ImageIcon iconTK = new ImageIcon(getClass().getResource("/Image/Cash-register-icon.png"));
+            tpMain.addTab("Thống kê ", iconTK, frmThongKe);
+            tpMain.setSelectedComponent(frmThongKe);
 
-        else if (obj.equals(btnDangXuat)){
+        } else if (obj.equals(btnDangXuat)) {
             this.dispose();
-            LoginDialog loginDialog=new LoginDialog();
+            LoginDialog loginDialog = new LoginDialog();
 
 
         }
     }
-
 
 
     public static void main(String[] args) {
@@ -195,12 +199,6 @@ public class MainForm extends JFrame implements ActionListener {
         new MainForm();
 
     }
-
-
-
-
-
-
 
 
 }

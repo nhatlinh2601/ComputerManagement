@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Vector;
 
 public class NhanVien {
-    private String maNV,tenNV,soDT,gioiTinh,diaChi,CMND,caLamViec,username;
+    private String maNV, tenNV, soDT, gioiTinh, diaChi, CMND, caLamViec, username;
     private Date ngaySinh;
 
     public String getUsername() {
@@ -25,7 +25,7 @@ public class NhanVien {
         this.CMND = CMND;
         this.caLamViec = caLamViec;
         this.ngaySinh = ngaySinh;
-        this.username=username;
+        this.username = username;
     }
 
     public NhanVien() {

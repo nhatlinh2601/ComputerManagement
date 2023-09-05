@@ -5,8 +5,9 @@ import java.util.Vector;
 
 public class SanPhamLK {
 
-    private String maSP,tenSP,moTa,nsx,trangThai,donViTinh,soDK;
+    private String maSP, tenSP, moTa, nsx, trangThai, donViTinh, soDK;
     private int soLuong;
+    private float giaNhap;
 
     private float price;
     private Date ngaySX;
@@ -23,6 +24,29 @@ public class SanPhamLK {
         this.soDK = soDK;
         this.price = price;
         this.ngaySX = ngaySX;
+    }
+
+    public SanPhamLK(String maSP, String tenSP, String moTa, String nsx, int soLuong, String trangThai,
+                     String donViTinh, String soDK, float price, Date ngaySX, Float giaNhap) {
+        this.maSP = maSP;
+        this.tenSP = tenSP;
+        this.moTa = moTa;
+        this.nsx = nsx;
+        this.soLuong = soLuong;
+        this.trangThai = trangThai;
+        this.donViTinh = donViTinh;
+        this.soDK = soDK;
+        this.price = price;
+        this.ngaySX = ngaySX;
+        this.giaNhap = giaNhap;
+    }
+
+    public float getGiaNhap() {
+        return giaNhap;
+    }
+
+    public void setGiaNhap(float giaNhap) {
+        this.giaNhap = giaNhap;
     }
 
     public SanPhamLK() {
@@ -108,12 +132,13 @@ public class SanPhamLK {
         this.ngaySX = ngaySX;
     }
 
-    public Vector<Object> toVector(){
-        Vector<Object> v=new Vector<>();
+    public Vector<Object> toVector() {
+        Vector<Object> v = new Vector<>();
         v.add(maSP);
         v.add(tenSP);
         v.add(moTa);
         v.add(price);
+        v.add(giaNhap);
         v.add(nsx);
         v.add(soLuong);
         v.add(trangThai);

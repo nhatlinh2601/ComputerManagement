@@ -11,29 +11,33 @@ public class NhanVienDAO {
     private PreparedStatement pstmt;
     private ArrayList<NhanVien> nhanVienList;
 
-   public ArrayList<NhanVien> getMaNV() throws Exception {
-       ArrayList<NhanVien> nhanVienList=new ArrayList<>();
-       try {
-           Connection conn=DatabaseHelper.getConnection();
-           String sql="select manv from nhanvien";
-           ResultSet rs= pstmt.executeQuery(sql);
-           while (rs.next()){
-               NhanVien nhanVien=new NhanVien();
-               nhanVien.setMaNV(rs.getString("manv"));
-               nhanVienList.add(nhanVien);
-           }
-           return nhanVienList;
-       } catch (Exception e) {
-           throw new RuntimeException(e);
-       }
-   }
+    public ArrayList<NhanVien> getMaNV() throws Exception {
+        ArrayList<NhanVien> nhanVienList = new ArrayList<>();
+        Connection conn = null;
+        try {
+            conn = DatabaseHelper.getConnection();
+            String sql = "select manv from nhanvien";
+            pstmt= conn.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery(sql);
+            while (rs.next()) {
+                NhanVien nhanVien = new NhanVien();
+                nhanVien.setMaNV(rs.getString("manv"));
+                nhanVienList.add(nhanVien);
+            }
+
+            return nhanVienList;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public boolean themNhanVien(NhanVien nhanVien) throws SQLException {
+        Connection conn = null;
         try {
 
-            Connection conn=DatabaseHelper.getConnection();
-            String sql="insert into nhanvien(manv,tennv,cmnd,sodt,gioitinh,diachi,ngaysinh,calamviec,username) values(?,?,?,?,?,?,?,?,?)";
-            pstmt= conn.prepareStatement(sql);
+            conn = DatabaseHelper.getConnection();
+            String sql = "insert into nhanvien(manv,tennv,cmnd,sodt,gioitinh,diachi,ngaysinh,calamviec,username) values(?,?,?,?,?,?,?,?,?)";
+            pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, nhanVien.getMaNV());
             pstmt.setString(2, nhanVien.getTenNV());
             pstmt.setString(3, nhanVien.getCMND());
@@ -42,25 +46,27 @@ public class NhanVienDAO {
             pstmt.setString(6, nhanVien.getDiaChi());
             pstmt.setDate(7, (Date) nhanVien.getNgaySinh());
             pstmt.setString(8, nhanVien.getCaLamViec());
-            pstmt.setString(9,nhanVien.getUsername());
+            pstmt.setString(9, nhanVien.getUsername());
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return pstmt.executeUpdate()>0;
+        return pstmt.executeUpdate() > 0;
     }
 
-    public NhanVien layThongTinNhanVien(String maNV){
-        try{
-            Connection conn=DatabaseHelper.getConnection();
-            String sql="select * from nhanvien where manv=?";
-            pstmt=conn.prepareStatement(sql);
+    public NhanVien layThongTinNhanVien(String maNV) {
+        Connection conn = null;
+        try {
+            conn = DatabaseHelper.getConnection();
+            String sql = "select * from nhanvien where manv=?";
+            pstmt = conn.prepareStatement(sql);
 
-            pstmt.setString(1,maNV);
-            ResultSet rs=pstmt.executeQuery();
-            NhanVien nhanVien=new NhanVien();
-            if (rs.next()){
+            pstmt.setString(1, maNV);
+            ResultSet rs = pstmt.executeQuery();
+            NhanVien nhanVien = new NhanVien();
+            if (rs.next()) {
 
                 nhanVien.setMaNV(maNV);
                 nhanVien.setTenNV(rs.getString("tennv"));
@@ -73,6 +79,7 @@ public class NhanVienDAO {
                 nhanVien.setUsername(rs.getString("username"));
             }
 
+
             return nhanVien;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -82,51 +89,54 @@ public class NhanVienDAO {
     }
 
     public boolean updateNhanVien(NhanVien nhanVien) throws SQLException {
-
+        Connection conn = null;
         try {
 
-            Connection conn=DatabaseHelper.getConnection();
-            String sql="update nhanvien set tennv=?,cmnd=?,diachi=?,sodt=?,ngaysinh=?,gioitinh=?,calamviec=? where manv=?";
-            pstmt=conn.prepareStatement(sql);
+            conn = DatabaseHelper.getConnection();
+            String sql = "update nhanvien set tennv=?,cmnd=?,diachi=?,sodt=?,ngaysinh=?,gioitinh=?,calamviec=? where manv=?";
+            pstmt = conn.prepareStatement(sql);
 
-            pstmt.setString(8,nhanVien.getMaNV());
-            pstmt.setString(1,nhanVien.getTenNV());
-            pstmt.setString(2,nhanVien.getCMND());
-            pstmt.setString(3,nhanVien.getDiaChi());
-            pstmt.setString(4,nhanVien.getSoDT());
+            pstmt.setString(8, nhanVien.getMaNV());
+            pstmt.setString(1, nhanVien.getTenNV());
+            pstmt.setString(2, nhanVien.getCMND());
+            pstmt.setString(3, nhanVien.getDiaChi());
+            pstmt.setString(4, nhanVien.getSoDT());
             pstmt.setDate(5, (Date) nhanVien.getNgaySinh());
-            pstmt.setString(6,nhanVien.getGioiTinh());
-            pstmt.setString(7,nhanVien.getCaLamViec());
+            pstmt.setString(6, nhanVien.getGioiTinh());
+            pstmt.setString(7, nhanVien.getCaLamViec());
+
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return pstmt.executeUpdate()>0;
+        return pstmt.executeUpdate() > 0;
     }
 
     public boolean xoaNhanVien(String maNV) throws SQLException {
+        Connection conn = null;
         try {
-            Connection conn=DatabaseHelper.getConnection();
-            String sql="delete from nhanvien where manv=?";
-            pstmt=conn.prepareStatement(sql);
-            pstmt.setString(1,maNV);
+            conn = DatabaseHelper.getConnection();
+            String sql = "delete from nhanvien where manv=?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, maNV);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return pstmt.executeUpdate()>0;
+        return pstmt.executeUpdate() > 0;
     }
 
-    public ArrayList<NhanVien> findByMaNV(String maNV){
+    public ArrayList<NhanVien> findByMaNV(String maNV) {
+        Connection conn = null;
         try {
-            Connection conn=DatabaseHelper.getConnection();
-            String sql="select * from nhanvien where manv like ?";
-            pstmt=conn.prepareStatement(sql);
-            pstmt.setString(1,"%" + maNV + "%");
-            ResultSet rs=pstmt.executeQuery();
-            nhanVienList=new ArrayList<>();
-            while (rs.next()){
-                NhanVien nhanVien=new NhanVien();
+            conn = DatabaseHelper.getConnection();
+            String sql = "select * from nhanvien where manv like ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, "%" + maNV + "%");
+            ResultSet rs = pstmt.executeQuery();
+            nhanVienList = new ArrayList<>();
+            while (rs.next()) {
+                NhanVien nhanVien = new NhanVien();
                 nhanVien.setMaNV(rs.getString("manv"));
                 nhanVien.setTenNV(rs.getString("tennv"));
                 nhanVien.setDiaChi(rs.getString("diachi"));
@@ -143,19 +153,25 @@ public class NhanVienDAO {
             throw new RuntimeException(e);
         } catch (Exception e) {
             throw new RuntimeException(e);
+        } finally {
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ignore) {
+            }
         }
     }
 
-    public ArrayList<NhanVien> findByTenNV(String tenNV){
+    public ArrayList<NhanVien> findByTenNV(String tenNV) {
+        Connection conn = null;
         try {
-            Connection conn=DatabaseHelper.getConnection();
-            String sql="select * from nhanvien where tennv like ?";
-            pstmt=conn.prepareStatement(sql);
-            pstmt.setString(1,"%" + tenNV + "%");
-            ResultSet rs=pstmt.executeQuery();
-            nhanVienList=new ArrayList<>();
-            while (rs.next()){
-                NhanVien nhanVien=new NhanVien();
+            conn = DatabaseHelper.getConnection();
+            String sql = "select * from nhanvien where tennv like ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, "%" + tenNV + "%");
+            ResultSet rs = pstmt.executeQuery();
+            nhanVienList = new ArrayList<>();
+            while (rs.next()) {
+                NhanVien nhanVien = new NhanVien();
                 nhanVien.setMaNV(rs.getString("manv"));
                 nhanVien.setTenNV(rs.getString("tennv"));
                 nhanVien.setDiaChi(rs.getString("diachi"));
@@ -167,24 +183,31 @@ public class NhanVienDAO {
                 nhanVien.setUsername(rs.getString("username"));
                 nhanVienList.add(nhanVien);
             }
+
             return nhanVienList;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (Exception e) {
             throw new RuntimeException(e);
+        } finally {
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ignore) {
+            }
         }
     }
 
-    public ArrayList<NhanVien> findBySDT(String soDT){
+    public ArrayList<NhanVien> findBySDT(String soDT) {
+        Connection conn = null;
         try {
-            Connection conn=DatabaseHelper.getConnection();
-            String sql="select * from nhanvien where sodt like ?";
-            pstmt=conn.prepareStatement(sql);
-            pstmt.setString(1,"%" + soDT + "%");
-            ResultSet rs=pstmt.executeQuery();
-            nhanVienList=new ArrayList<>();
-            while (rs.next()){
-                NhanVien nhanVien=new NhanVien();
+            conn = DatabaseHelper.getConnection();
+            String sql = "select * from nhanvien where sodt like ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, "%" + soDT + "%");
+            ResultSet rs = pstmt.executeQuery();
+            nhanVienList = new ArrayList<>();
+            while (rs.next()) {
+                NhanVien nhanVien = new NhanVien();
                 nhanVien.setMaNV(rs.getString("manv"));
                 nhanVien.setTenNV(rs.getString("tennv"));
                 nhanVien.setDiaChi(rs.getString("diachi"));
@@ -196,24 +219,31 @@ public class NhanVienDAO {
                 nhanVien.setUsername(rs.getString("username"));
                 nhanVienList.add(nhanVien);
             }
+
             return nhanVienList;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (Exception e) {
             throw new RuntimeException(e);
+        } finally {
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ignore) {
+            }
         }
     }
 
-    public ArrayList<NhanVien> findByCMND(String cmnd){
+    public ArrayList<NhanVien> findByCMND(String cmnd) {
+        Connection conn = null;
         try {
-            Connection conn=DatabaseHelper.getConnection();
-            String sql="select * from nhanvien where cmnd like ?";
-            pstmt=conn.prepareStatement(sql);
-            pstmt.setString(1,"%" + cmnd + "%");
-            ResultSet rs=pstmt.executeQuery();
-            nhanVienList=new ArrayList<>();
-            while (rs.next()){
-                NhanVien nhanVien=new NhanVien();
+            conn = DatabaseHelper.getConnection();
+            String sql = "select * from nhanvien where cmnd like ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, "%" + cmnd + "%");
+            ResultSet rs = pstmt.executeQuery();
+            nhanVienList = new ArrayList<>();
+            while (rs.next()) {
+                NhanVien nhanVien = new NhanVien();
                 nhanVien.setMaNV(rs.getString("manv"));
                 nhanVien.setTenNV(rs.getString("tennv"));
                 nhanVien.setDiaChi(rs.getString("diachi"));
@@ -225,36 +255,48 @@ public class NhanVienDAO {
                 nhanVien.setUsername(rs.getString("username"));
                 nhanVienList.add(nhanVien);
             }
+
             return nhanVienList;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (Exception e) {
             throw new RuntimeException(e);
+        } finally {
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ignore) {
+            }
         }
     }
-    public ArrayList<TaiKhoan> loadCbxUsername(){
 
-        ArrayList<TaiKhoan> taiKhoanList=new ArrayList<>();
+    public ArrayList<TaiKhoan> loadCbxUsername() {
+
+        ArrayList<TaiKhoan> taiKhoanList = new ArrayList<>();
+        Connection conn = null;
         try {
-            Connection conn = DatabaseHelper.getConnection();
+            conn = DatabaseHelper.getConnection();
             String sql = "select username from taikhoan";
             pstmt = conn.prepareStatement(sql);
-            ResultSet rs= pstmt.executeQuery();
-            while (rs.next()){
-                TaiKhoan taiKhoan=new TaiKhoan();
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                TaiKhoan taiKhoan = new TaiKhoan();
                 taiKhoan.setUsername(rs.getString("username"));
                 taiKhoanList.add(taiKhoan);
             }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (Exception e) {
             throw new RuntimeException(e);
+        } finally {
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ignore) {
+            }
         }
         return taiKhoanList;
 
     }
-
-
 
 
 }
